@@ -7,13 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-    <form id="logIn_form">
+    <form id="logIn_form" class="hidden">
         <input type="text" maxlength="10" placeholder="name?" id="inp">
         <button type="submit" id="logInBtn">Log In</button>
     </form>
-    <div>
-        <h3 class="hidden" id="res">hi</h3>
+    <div class="hidden" id="res">
+        <button type="submit" id="logOutBtn">Log Out</button>
+        <br>
+        <input type="text" id="clock">
     </div>
-    <script src="app.js"></script>
+    <script src="app.js"></script> 
 </body>
 </html>
