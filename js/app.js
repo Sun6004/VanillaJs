@@ -68,10 +68,20 @@ class ClockC {
         console.log(output);
         clockVal.innerText = `${output}`;
     }
-}
+  
+    stop() {
+        clearInterval(this.timer);
+    }
+  
+    start() {
+        this.render();
+        this.timer = setInterval(() => this.render(), 1000);
+    }
+  }
+  
+let clock = new ClockC({ template: 'h:m:s' });
+clock.start();
 
-const myClock = new ClockC({ template: 'h:m:s' });
-myClock.render();
 
 logInBtn.addEventListener("click", logIn);
 document.addEventListener('click', function (event) {
