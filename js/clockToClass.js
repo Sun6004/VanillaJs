@@ -1,33 +1,20 @@
-class ClockC {
-  constructor({ template }) {
-      this.template = template;
-      this.timer = null;
-  }
+const clock = document.querySelector("h2#clock");
 
-  render() {
-      let date = new Date();
-      let hours = date.getHours();
-      let mins = date.getMinutes();
-      let secs = date.getSeconds();
+class GetClock{ 
+    render(){
+        const date = new Date();
 
-      if (hours < 10) hours = "0" + hours;
-      if (mins < 10) mins = "0" + mins;
-      if (secs < 10) secs = "0" + secs;
+        let hours = String(date.getHours()).padStart(2,"0");
+        let min = String(date.getMinutes()).padStart(2,"0");
+        let sec = String(date.getSeconds()).padStart(2,"0");
 
-      let output = this.template.replace('h', hours).replace('m', mins).replace('s', secs);
+        clock.innerText = `현재시각: ${hours}:${min}:${sec}`;
+    }
 
-      console.log(output);
-  }
-
-  stop() {
-      clearInterval(this.timer);
-  }
-
-  start() {
-      this.render();
-      this.timer = setInterval(() => this.render(), 1000);
-  }
+    start(){
+        this.render();
+        setInterval(this.render,1000);
+    }
 }
-
-let clock = new ClockC({ template: 'h:m:s' });
-clock.start();
+const clockStart = new GetClock();
+clockStart.start();

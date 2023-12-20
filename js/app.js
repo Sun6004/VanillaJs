@@ -5,6 +5,66 @@ const loginForm = document.querySelector("#logIn_form");
 const logOutBtn = document.querySelector("#logOutBtn");
 const clockVal = document.querySelector("#clock");
 
+function loginSuccess(val) {
+    loginForm.classList.add("hidden");
+    res.innerHTML = `<h3>hi ${val}</h3>
+                    <button type="submit" id="logOutBtn">Log Out</button>
+                    <p id="clock2"></p>`;
+    res.classList.remove('hidden');
+
+    function clockStart() {
+        const clockElement = document.querySelector("#clock");
+
+        let clock = new ClockC({ template: 'h:m:s' });
+
+        clock.start();
+        const clock2 = document.querySelector("#clock2");
+        clock2.innerText = `${clock.render()}`;
+
+        setInterval(() => {
+            clock2.innerText = `${clock.render()}`;
+        }, 1000);
+    }
+    clockStart();
+}
+
+
+class ClockC {
+    constructor({ template }) {
+        this.template = template;
+        this.timer = null;
+    }
+  
+    render() {
+        let date = new Date();
+        let hours = date.getHours();
+        let mins = date.getMinutes();
+        let secs = date.getSeconds();
+  
+        if (hours < 10) hours = "0" + hours;
+        if (mins < 10) mins = "0" + mins;
+        if (secs < 10) secs = "0" + secs;
+  
+        let output = this.template.replace('h', hours).replace('m', mins).replace('s', secs);
+
+        clockVal.innerText = `${output}`;
+        return output;
+    }
+  
+    stop() {
+        clearInterval(this.timer);
+    }
+  
+    start() {
+        this.render();
+        this.timer = setInterval(() => this.render(), 1000);
+    }
+  }
+
+const clock = new ClockC({ template: 'h:m:s' });
+clock.render();
+clock.start();
+
 function loginCheck() {
     const userCheck = localStorage.getItem("name");
     if (userCheck === null) {
@@ -15,15 +75,8 @@ function loginCheck() {
         res.classList.remove("hidden");
     }
 }
-
 loginCheck();
 
-function loginSuccess(val) {
-    loginForm.classList.add("hidden");
-    res.innerHTML = `<h3>hi ${val}</h3>
-                    <button type="submit" id="logOutBtn">Log Out</button>`;
-    res.classList.remove('hidden');
-}
 
 function logIn(event) {
     event.preventDefault();
@@ -46,42 +99,6 @@ function log_out(event){
     res.classList.add('hidden');
     localStorage.clear();
 }
-
-class ClockC {
-    constructor({ template }) {
-        this.template = template;
-        this.timer = null;
-    }
-  
-    render() {
-        let date = new Date();
-        let hours = date.getHours();
-        let mins = date.getMinutes();
-        let secs = date.getSeconds();
-  
-        if (hours < 10) hours = "0" + hours;
-        if (mins < 10) mins = "0" + mins;
-        if (secs < 10) secs = "0" + secs;
-  
-        let output = this.template.replace('h', hours).replace('m', mins).replace('s', secs);
-  
-        console.log(output);
-        clockVal.innerText = `${output}`;
-    }
-  
-    stop() {
-        clearInterval(this.timer);
-    }
-  
-    start() {
-        this.render();
-        this.timer = setInterval(() => this.render(), 1000);
-    }
-  }
-  
-let clock = new ClockC({ template: 'h:m:s' });
-clock.start();
-
 
 logInBtn.addEventListener("click", logIn);
 document.addEventListener('click', function (event) {

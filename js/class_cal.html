@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    class cal{
+        add(x,y){ return x+y; }
+        sub(x,y){ return x-y; }
+        multi(x,y){ return x*y; }
+        div(x,y){ return x/y; }
+    }
+    let calc = new cal();
+    console.log(calc.add(1,2));
+
+    class clac {
+    constructor({ x, y }) {
+        this.x = x;
+        this.y = y;
+    }
+
+    add() { return this.x + this.y; }
+    sub() { return this.x - this.y; }
+    multi() { return this.x * this.y; }
+    div() { return this.x / this.y; }
+}
+
+let calc2 = new clac({ x: 1, y: 3 });
+console.log(calc2.add());
+console.log(calc2.sub());
+console.log(calc2.multi());
+
+
+</script>
